@@ -37,7 +37,7 @@ function App(){
 	useEffect(() => {
 		axios.get("https://hacker-news.firebaseio.com/v0/topstories.json").then((res) => {
 			const result = res.data.slice((pagenum * 10) - 10, pagenum * 10);
-			setMaxpage(Math.floor(res.data.length/10) + 1);
+			setMaxpage((res.data.length % 10 === 0 ? (res.data.length/10) : (Math.floor(res.data.length/10) + 1)));
 			setNews([]);
 			result.forEach((v, i) => {
 				axios.get("https://hacker-news.firebaseio.com/v0/item/" + v + ".json").then((res) => {
